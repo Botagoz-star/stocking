@@ -2,7 +2,8 @@ import React, { Component } from "react";
 
 export default class SearchBar extends Component {
   render() {
-    const { filterText, onFilterTextChange } = this.props;
+    const { filterText, onFilterTextChange, inStockOnly, onInStockOnlyChange } =
+      this.props;
     return (
       <form>
         <input
@@ -12,7 +13,12 @@ export default class SearchBar extends Component {
           onChange={(e) => onFilterTextChange(e.target.value)}
         />
         <label>
-          <input type="checkbox" /> Only show products in stock
+          <input
+            type="checkbox"
+            checked={inStockOnly}
+            onChange={(e) => onInStockOnlyChange(e.target.checked)}
+          />{" "}
+          Only show products in stock
         </label>
       </form>
     );

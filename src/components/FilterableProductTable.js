@@ -8,6 +8,7 @@ export default class FilterableProductTable extends Component {
     // console.log(props);
     this.state = {
       filterText: "",
+      inStockOnly: false,
     };
   }
 
@@ -15,14 +16,20 @@ export default class FilterableProductTable extends Component {
     this.setState({ filterText: value });
   };
 
+  onInStockOnlyChange = (value) => {
+    this.setState({ inStockOnly: value });
+  };
+
   render() {
     const { products } = this.props;
-    const { filterText } = this.state;
-    console.log(filterText);
+    const { filterText, inStockOnly } = this.state;
+
     return (
       <div>
         <SearchBar
           filterText={filterText}
+          inStockOnly={inStockOnly}
+          onInStockOnlyChange={this.onInStockOnlyChange}
           onFilterTextChange={this.onFilterTextChange}
         />
         <ProductTable />
