@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 export default class SearchBar extends Component {
   render() {
+    console.log("SearchBar");
+
     const { filterText, onFilterTextChange, inStockOnly, onInStockOnlyChange } =
       this.props;
     return (

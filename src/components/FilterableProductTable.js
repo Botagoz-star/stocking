@@ -9,7 +9,26 @@ export default class FilterableProductTable extends Component {
     this.state = {
       filterText: "",
       inStockOnly: false,
+      products: [],
     };
+  }
+
+  fetchData = async () => {
+    const url = "https://65971ae8668d248edf229713.mockapi.io/api/v1/produce";
+
+    try {
+      const resp = await fetch(url);
+      const data = await resp.json();
+      this.setState({ products: data });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      // console.log("finally block");
+    }
+  };
+
+  componentDidMount() {
+    this.fetchData();
   }
 
   onFilterTextChange = (value) => {
@@ -21,8 +40,7 @@ export default class FilterableProductTable extends Component {
   };
 
   render() {
-    const { products } = this.props;
-    const { filterText, inStockOnly } = this.state;
+    const { filterText, inStockOnly, products } = this.state;
 
     return (
       <div>
@@ -32,7 +50,11 @@ export default class FilterableProductTable extends Component {
           onInStockOnlyChange={this.onInStockOnlyChange}
           onFilterTextChange={this.onFilterTextChange}
         />
-        <ProductTable />
+        <ProductTable
+          products={products}
+          inStockOnly={inStockOnly}
+          filterText={filterText}
+        />
       </div>
     );
   }
