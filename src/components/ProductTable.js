@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./ProductTable.css";
 import ProductCategoryRow from "./ProductCategoryRow";
 import ProductRow from "./ProductRow";
 
@@ -22,6 +21,16 @@ export default class ProductTable extends Component {
           {products.map(({ category, id, name, stocked, price }) => {
             const obj = { id: id, name: name, stocked: stocked, price: price };
             let catrow = null;
+
+            if (name.toLowerCase().indexOf(filterText.toLowerCase()) === -1) {
+              // apple.indexOf("apple") => 0
+              // apple.indexOf("rg") => -1
+              return null;
+            }
+
+            if (inStockOnly && !stocked) {
+              return null;
+            }
 
             if (lastCategory !== category) {
               // null !== "Fruits" --> true
